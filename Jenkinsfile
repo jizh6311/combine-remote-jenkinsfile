@@ -10,6 +10,7 @@ node {
         userRemoteConfigs: [[url: 'https://github.com/tartale/jenkins-test-2']]])
     load 'jenkins-test-2/Jenkinsfile'
   } else {
+    checkout scm
     load 'Jenkinsfile.local'
   }
 }
