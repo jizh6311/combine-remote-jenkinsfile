@@ -1,0 +1,39 @@
+pipeline {  
+  options {
+     timestamps()
+     disableConcurrentBuilds()
+     timeout(time: 2, unit: 'HOURS') 
+  }
+  
+  parameters {
+    booleanParam(
+      name: 'RUN_E2E_TESTS_STAGE',
+      defaultValue: params.RUN_E2E_TESTS_STAGE ?:false,
+      description: 'Runs the client-ui E2E tests'
+    )
+
+    string(
+      name: 'E2E_CLUSTER_NAME', 
+      defaultValue: 'e2e-nightly.test.k8s.local', 
+      description: 'The testing cluster name for the latest nightly release of Aspen Mesh'
+    )
+    
+    string(
+      name: 'E2E_CLUSTER_HOSTNAME', 
+      defaultValue: 'http://e2e-test.dev.twistio.io', 
+      description: 'The testing cluster host name for the latest nightly release of Aspen Mesh'
+    )
+  }
+  
+  stages {
+    stage('Download and Upgrade') {
+      steps {
+        echo "Download and upgrade the latest nightly release of Aspen Mesh"
+      }
+    }
+  
+    stage('E2E') {
+      echo "Running E2E tests against ${params.E2E_CLUSTER_HOSTNAME}"
+    }
+  }
+}
