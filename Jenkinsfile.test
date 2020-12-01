@@ -14,13 +14,13 @@ pipeline {
 
     string(
       name: 'E2E_CLUSTER_NAME', 
-      defaultValue: 'e2e-nightly.test.k8s.local', 
+      defaultValue: 'test.cluster', 
       description: 'The testing cluster name for the latest nightly release of Aspen Mesh'
     )
     
     string(
       name: 'E2E_CLUSTER_HOSTNAME', 
-      defaultValue: 'http://e2e-test.dev.twistio.io', 
+      defaultValue: 'https://test-cluster.com', 
       description: 'The testing cluster host name for the latest nightly release of Aspen Mesh'
     )
   }
@@ -28,12 +28,18 @@ pipeline {
   stages {
     stage('Download and Upgrade') {
       steps {
-        echo "Download and upgrade the latest nightly release of Aspen Mesh"
+        script {
+          echo "Download and upgrade the latest nightly release of Aspen Mesh"
+        }
       }
     }
   
     stage('E2E') {
-      echo "Running E2E tests against ${params.E2E_CLUSTER_HOSTNAME}"
+      steps {
+        script {
+          echo "Running E2E tests against ${params.E2E_CLUSTER_HOSTNAME}"
+        }
+      }
     }
   }
 }
