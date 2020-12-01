@@ -31,7 +31,11 @@ pipeline {
     stage('Download and Upgrade') {
       steps {
         script {
-          echo "Download and upgrade the latest nightly release of Aspen Mesh"
+          sh 'chmod +x ./scripts/print.sh'
+          env.Message = sh (
+            script: './scripts/print.sh',
+            returnStdout: true).trim()
+          echo "Running printing script: ${env.Message}"
         }
       }
     }
