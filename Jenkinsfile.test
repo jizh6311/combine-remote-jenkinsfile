@@ -36,6 +36,8 @@ pipeline {
             script: './scripts/print.sh',
             returnStdout: true).trim()
           echo "Running printing script: ${env.Message}"
+          testString = "testingString"
+          echo "$testString-postfix"
         }
       }
     }
