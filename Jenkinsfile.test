@@ -58,14 +58,10 @@ pipeline {
      }
     }
     
-    success {
+    fixed {
      script {
-       if ("FAILURE" == currentBuild.getPreviousBuild().result) {
-          echo "Last build result failed"
-       } else {
-         lastBuildResult = currentBuild.getPreviousBuild().result
-         echo "Last build result is $lastBuildResult"
-       }
+       lastBuildResult = currentBuild.getPreviousBuild().result
+       echo "Last build result is $lastBuildResult"
      }
     }
   }
