@@ -45,7 +45,18 @@ pipeline {
     stage('E2E') {
       steps {
         script {
+          test_passed = true
+          try {
+            sh "cd non-existing-dir"
+          } catch (e) {
+            test_passed = false
+          }
+          
           echo "Running E2E tests against ${params.E2E_CLUSTER_HOSTNAME}"
+          
+          if (!test_passed) {
+            sh "exit 1"
+          }
         }
       }
     }
