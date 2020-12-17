@@ -47,12 +47,11 @@ pipeline {
         script {
           test_passed = true
           try {
-            sh "cd non-existing-dir"
+            env.clusterName = "${params.E2E_CLUSTER_NAME}"
+            echo "Running E2E tests against ${env.clusterName}"
           } catch (e) {
             test_passed = false
           }
-          
-          echo "Running E2E tests against ${params.E2E_CLUSTER_HOSTNAME}"
           
           if (!test_passed) {
             sh "exit 1"
