@@ -19,7 +19,16 @@ pipeline {
 
     stage('Introduction') {
         steps {
-          echo "Hello, this is ${env.YOURNAME}!"
+          script {
+              sh '''
+                if [ "${YOURNAME}" = "world" ]; then
+                  export NAME=$(./scripts/get-name.sh "${YOURNAME}")
+                  echo "NAME=${NAME}"
+                else 
+                  echo "not going to print other names"
+                fi  
+              '''
+          }
         }
     }
   }
