@@ -26,6 +26,7 @@ pipeline {
                   echo "NAME=${NAME}"
                 else 
                   echo "not going to print other names"
+                  echo "YOURNAME=${YOURNAME}"
                 fi  
               '''
           }
